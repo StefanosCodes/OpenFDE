@@ -363,9 +363,34 @@ Do not extract shared packages until at least two consumers prove the abstractio
 9. Maintain the same evaluation dataset when comparing architecture variants.
 10. Publish failures and trade-offs, not unsupported production claims.
 
+## Getting Started
+
+The Next.js studio and a no-cost Promptfoo starter live at the repository root. Install and run them without committing `node_modules`, `.next`, or Promptfoo local output.
+
+### Studio
+
+```bash
+pnpm --dir studio install
+pnpm --dir studio dev
+```
+
+Then visit <http://localhost:3000>. Agents are defined in `studio/lib/agents.ts`.
+
+### Promptfoo starter evaluation
+
+Promptfoo requires Node.js 22.22 or newer. From the repository root:
+
+```bash
+pnpm install
+pnpm eval
+pnpm eval:view
+```
+
+The starter uses Promptfoo's local `echo` provider. It makes no network model requests and needs no API key. The dashboard is at <http://localhost:15500>. Configuration is in `evals/promptfooconfig.yaml`.
+
 ## Current Repository State
 
-The repository currently contains the complete technical plan and the lightweight Nexus specification. Application code has not yet been scaffolded. The next commit should establish the monorepo, Nexus API, database migrations, seed data, tests, and Docker Compose before Agent 1 is implemented.
+The repository contains the technical plan, the Nexus specification, a Next.js studio shell, and a Promptfoo starter evaluation. The next backend milestone is the monorepo, Nexus API, database migrations, seed data, tests, and Docker Compose before Agent 1 is implemented.
 
 ## Documentation
 

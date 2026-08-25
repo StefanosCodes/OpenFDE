@@ -1,0 +1,339 @@
+:root {
+  color-scheme: dark;
+  --bg: #050505;
+  --text: #faf7f0;
+  --muted: #8a867c;
+  --subtle: #c8c3b8;
+  --line: #24221e;
+  --fill: #11100e;
+}
+
+* {
+  box-sizing: border-box;
+}
+
+html,
+body {
+  min-height: 100%;
+}
+
+html {
+  background: var(--bg);
+}
+
+body {
+  margin: 0;
+  background: var(--bg);
+  color: var(--text);
+  font-family: var(--font-sans), "IBM Plex Sans", system-ui, sans-serif;
+  font-size: 16px;
+  line-height: 1.55;
+}
+
+a {
+  color: inherit;
+  text-decoration: none;
+}
+
+button,
+input {
+  font: inherit;
+  color: inherit;
+}
+
+h1,
+h2,
+.serif {
+  font-family: var(--font-serif), "Newsreader", Georgia, serif;
+  font-weight: 400;
+}
+
+::selection {
+  background: rgba(250, 247, 240, 0.16);
+}
+
+.sr-only {
+  position: absolute;
+  width: 1px;
+  height: 1px;
+  padding: 0;
+  margin: -1px;
+  overflow: hidden;
+  clip: rect(0, 0, 0, 0);
+  white-space: nowrap;
+  border: 0;
+}
+
+.shell {
+  display: flex;
+  flex-direction: column;
+  min-height: 100svh;
+}
+
+.shell-center {
+  display: flex;
+  flex: 1;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  padding: 2rem 1.5rem 4.5rem;
+}
+
+.stack {
+  width: min(20rem, 100%);
+}
+
+.home-header,
+.doorway-header {
+  margin-bottom: 3.5rem;
+}
+
+.home-header h1,
+.doorway-header h1 {
+  margin: 0;
+  font-size: 1.35rem;
+  letter-spacing: -0.03em;
+  line-height: 1.2;
+}
+
+.tagline,
+.lede,
+.muted {
+  color: var(--muted);
+}
+
+.tagline {
+  margin: 0.4rem 0 0;
+  font-size: 0.92rem;
+}
+
+.nav-list,
+.action-list {
+  display: flex;
+  flex-direction: column;
+}
+
+.nav-link,
+.action-link {
+  position: relative;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 0.85rem 0;
+  color: var(--text);
+  transition: color 180ms ease;
+}
+
+.nav-link:hover,
+.nav-link:focus-visible,
+.action-link:hover,
+.action-link:focus-visible {
+  color: var(--text);
+}
+
+.nav-link::after,
+.action-link::after {
+  content: "";
+  position: absolute;
+  left: 0;
+  bottom: 0.45rem;
+  width: 0;
+  height: 1px;
+  background: var(--text);
+  opacity: 0.45;
+  transition: width 220ms ease;
+}
+
+.nav-link:hover::after,
+.nav-link:focus-visible::after,
+.action-link:hover::after,
+.action-link:focus-visible::after {
+  width: 100%;
+}
+
+.home-footer {
+  display: flex;
+  gap: 1.25rem;
+  margin-top: 2.75rem;
+  padding-top: 1.35rem;
+  border-top: 1px solid var(--line);
+  color: var(--muted);
+  font-size: 0.88rem;
+}
+
+.home-footer a:hover,
+.home-footer a:focus-visible {
+  color: var(--text);
+}
+
+.chrome {
+  display: flex;
+  align-items: baseline;
+  justify-content: space-between;
+  gap: 1.5rem;
+  padding: 1.5rem 1.5rem 0;
+}
+
+.mark,
+.chrome a {
+  color: var(--muted);
+  font-size: 0.88rem;
+}
+
+.mark:hover,
+.mark:focus-visible,
+.chrome a:hover,
+.chrome a:focus-visible {
+  color: var(--text);
+}
+
+.chrome-right {
+  display: flex;
+  gap: 1.15rem;
+}
+
+.paper-shell {
+  padding: 0 1.5rem 6rem;
+}
+
+.paper {
+  width: min(40rem, 100%);
+  margin: 4.5rem auto 0;
+}
+
+.paper h1 {
+  margin: 0;
+  font-size: clamp(2.4rem, 6vw, 3.4rem);
+  letter-spacing: -0.04em;
+  line-height: 1.05;
+}
+
+.paper .lede {
+  margin: 1.5rem 0 3.5rem;
+  color: var(--text);
+  font-size: 1.05rem;
+  line-height: 1.65;
+}
+
+.paper h2 {
+  margin: 2.75rem 0 0.85rem;
+  font-size: 1.05rem;
+  letter-spacing: -0.02em;
+}
+
+.paper p {
+  margin: 0 0 1rem;
+  color: var(--text);
+  line-height: 1.7;
+}
+
+.workspace-page {
+  display: flex;
+  flex-direction: column;
+  min-height: 100svh;
+}
+
+.workspace {
+  display: flex;
+  flex-direction: column;
+  flex: 1;
+  width: min(42rem, 100%);
+  margin: 0 auto;
+  padding: 0 1.5rem 1.5rem;
+}
+
+.workspace-empty {
+  display: flex;
+  flex: 1;
+  flex-direction: column;
+  justify-content: center;
+  padding-bottom: 4rem;
+}
+
+.workspace-title {
+  margin: 0;
+  font-size: 2rem;
+  letter-spacing: -0.04em;
+}
+
+.workspace-empty .lede {
+  margin-top: 0.7rem;
+  max-width: 28rem;
+}
+
+.transcript {
+  flex: 1;
+  margin: 2.5rem 0 1.5rem;
+  padding: 0;
+  list-style: none;
+}
+
+.turn {
+  margin-bottom: 1.6rem;
+}
+
+.turn-role {
+  display: block;
+  margin-bottom: 0.35rem;
+  color: var(--muted);
+  font-size: 0.78rem;
+  letter-spacing: 0.04em;
+  text-transform: lowercase;
+}
+
+.turn p {
+  margin: 0;
+  color: var(--subtle);
+}
+
+.turn-user p {
+  color: var(--text);
+}
+
+.composer {
+  display: flex;
+  gap: 0.75rem;
+  align-items: center;
+  padding: 0.85rem 1rem;
+  border: 1px solid var(--line);
+  background: var(--fill);
+}
+
+.composer input {
+  flex: 1;
+  min-width: 0;
+  padding: 0;
+  border: 0;
+  background: transparent;
+  outline: none;
+}
+
+.composer input::placeholder {
+  color: var(--muted);
+}
+
+.composer button {
+  padding: 0;
+  border: 0;
+  background: transparent;
+  color: var(--muted);
+  cursor: pointer;
+}
+
+.composer button:hover,
+.composer button:focus-visible {
+  color: var(--text);
+}
+
+.not-found {
+  text-align: left;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .nav-link,
+  .action-link,
+  .nav-link::after,
+  .action-link::after {
+    transition: none;
+  }
+}

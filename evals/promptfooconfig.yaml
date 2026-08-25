@@ -1,0 +1,27 @@
+# yaml-language-server: $schema=https://promptfoo.dev/config-schema.json
+description: OpenFDE Promptfoo starter evaluation
+
+# The starter uses Promptfoo's deterministic echo provider, so it is free and
+# does not need an API key. Replace this with the OpenFDE application provider
+# when the application is ready to evaluate.
+providers:
+  - id: echo
+    label: Local starter (no API calls)
+
+prompts:
+  - "OpenFDE response: {{message}}"
+
+tests:
+  - description: Handles a basic greeting
+    vars:
+      message: Hello from the first OpenFDE evaluation
+    assert:
+      - type: equals
+        value: "OpenFDE response: Hello from the first OpenFDE evaluation"
+
+  - description: Substitutes a second test-case value
+    vars:
+      message: Promptfoo is working
+    assert:
+      - type: contains
+        value: "Promptfoo is working"

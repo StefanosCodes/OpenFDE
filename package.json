@@ -1,0 +1,14 @@
+{
+  "name": "openfde-evals",
+  "private": true,
+  "scripts": {
+    "studio": "pnpm --dir studio dev",
+    "studio:build": "pnpm --dir studio build",
+    "eval": "promptfoo eval -c evals/promptfooconfig.yaml",
+    "eval:view": "promptfoo view",
+    "eval:setup": "promptfoo eval setup evals"
+  },
+  "devDependencies": {
+    "promptfoo": "0.122.0"
+  }
+}
