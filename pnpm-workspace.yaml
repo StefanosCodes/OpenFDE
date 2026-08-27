@@ -1,3 +1,6 @@
+packages:
+  - studio
+
 allowBuilds:
   # These optional transitive packages are not needed for the starter eval or
   # results dashboard. Keep their install scripts disabled by default.

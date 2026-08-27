@@ -1,7 +1,15 @@
 {
-  "name": "openfde-evals",
+  "name": "openfde",
   "private": true,
   "scripts": {
+    "dev": "concurrently --kill-others-on-fail --names nexus,studio \"docker compose up --build postgres nexus-migrate nexus-seed nexus\" \"pnpm --dir studio dev\"",
+    "dev:down": "docker compose --profile test down",
+    "db:migrate": "docker compose run --rm nexus-migrate",
+    "db:seed": "docker compose run --rm nexus-seed",
+    "api:generate": "bash scripts/generate-contracts.sh",
+    "api:check": "bash scripts/check-contracts.sh",
+    "verify": "bash scripts/verify.sh",
+    "smoke": "bash scripts/smoke.sh",
     "studio": "pnpm --dir studio dev",
     "studio:build": "pnpm --dir studio build",
     "eval": "promptfoo eval -c evals/promptfooconfig.yaml",
@@ -9,6 +17,7 @@
     "eval:setup": "promptfoo eval setup evals"
   },
   "devDependencies": {
+    "concurrently": "9.2.1",
     "promptfoo": "0.122.0"
   }
 }

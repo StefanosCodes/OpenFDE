@@ -4,7 +4,7 @@ OpenFDE Studio is an open-source engineering lab for building, testing, and comp
 
 The repository is organized as a set of independent agent services that share one deliberately small business-data backend. Each service isolates a different systems problem—tool calling, skills, MCP, retrieval, memory, planning, routing, handoffs, multi-agent orchestration, or realtime voice—and includes the datasets, traces, evaluations, and failure cases needed to understand whether it works.
 
-> **Status:** Pre-alpha. The architecture and specifications are complete; the first runnable vertical slice is the next milestone.
+> **Status:** Pre-alpha. The React Studio and Tiny Nexus foundation are runnable; Agent 1 is the next milestone.
 
 ## What We Are Looking to Solve
 
@@ -62,6 +62,7 @@ The initial repository will not be:
 
 ```mermaid
 flowchart LR
+    Studio["React + Vite Studio"] --> Nexus
     Seed["Synthetic datasets"] --> Nexus["Nexus API\nFastAPI + PostgreSQL"]
     Nexus --> FT["Typed function tools"]
     Nexus --> MCP["Nexus MCP server"]
@@ -205,16 +206,17 @@ The workflow taxonomy is informed by NVIDIA NeMo Agent Toolkit concepts such as 
 - [x] Define the eight-agent curriculum
 - [x] Define Nexus data, API, function-tool, and MCP boundaries
 - [x] Define the shared learning and evaluation contract
-- [ ] Scaffold the monorepo, local environment, CI, and contribution templates
+- [x] Scaffold the monorepo, local environment, and CI
+- [ ] Add contribution templates
 
 ### Phase 1 — Tiny Nexus
 
-- [ ] Implement one FastAPI application and PostgreSQL schema
-- [ ] Add migrations for the six core tables
-- [ ] Add the thirteen REST routes
-- [ ] Create an idempotent seed CLI with 5 accounts, 20 calls, 4 documents, and 10 tasks
-- [ ] Add repository, service, API, tenant-isolation, and idempotency tests
-- [ ] Ship Docker Compose for local development
+- [x] Implement one FastAPI application and PostgreSQL schema
+- [x] Add migrations for the six core tables
+- [x] Add the thirteen REST routes
+- [x] Create an idempotent seed CLI with 5 accounts, 20 calls, 4 documents, and 10 tasks
+- [x] Add API, service-authentication, persistence, and idempotency tests
+- [x] Ship Docker Compose for local development
 
 **Exit criterion:** calls can be searched, bounded transcript turns retrieved, documents loaded, and one task created idempotently.
 
@@ -365,16 +367,35 @@ Do not extract shared packages until at least two consumers prove the abstractio
 
 ## Getting Started
 
-The Next.js studio and a no-cost Promptfoo starter live at the repository root. Install and run them without committing `node_modules`, `.next`, or Promptfoo local output.
+The local foundation uses Node.js 24, pnpm 11, Python 3.12 through `uv`, and Docker. No OpenAI API key is required.
 
-### Studio
+### Complete foundation
 
 ```bash
-pnpm --dir studio install
-pnpm --dir studio dev
+pnpm install
+uv sync --project services/nexus --locked
+pnpm dev
 ```
 
-Then visit <http://localhost:3000>. Agents are defined in `studio/lib/agents.ts`.
+`pnpm dev` starts PostgreSQL, applies the Alembic migration, runs the idempotent seed, starts Nexus, and starts the Vite Studio.
+
+- Studio: <http://localhost:5173>
+- Nexus health: <http://localhost:8000/health>
+- Nexus OpenAPI: <http://localhost:8000/docs>
+
+The browser reaches Nexus through Vite's same-origin development proxy. The proxy supplies the local service credential; React code never receives it.
+
+Useful commands:
+
+```bash
+pnpm dev:down       # stop local containers without deleting PostgreSQL data
+pnpm db:migrate     # apply Nexus migrations
+pnpm db:seed        # safely re-run deterministic fixtures
+pnpm verify         # PostgreSQL integration tests plus frontend checks/build
+pnpm smoke          # full React -> Nexus -> PostgreSQL Chromium smoke test
+```
+
+The eight project definitions live in `studio/src/lib/agents.ts`. Agent workspaces are honest interface boundaries; no model runtime is simulated.
 
 ### Promptfoo starter evaluation
 
@@ -390,7 +411,9 @@ The starter uses Promptfoo's local `echo` provider. It makes no network model re
 
 ## Current Repository State
 
-The repository contains the technical plan, the Nexus specification, a Next.js studio shell, and a Promptfoo starter evaluation. The next backend milestone is the monorepo, Nexus API, database migrations, seed data, tests, and Docker Compose before Agent 1 is implemented.
+The repository now contains a Vite/React Studio, the API-only Tiny Nexus service, generated OpenAPI TypeScript contracts, PostgreSQL migrations and fixtures, Docker Compose orchestration, backend and frontend tests, a browser smoke test, CI, the technical plans, and the Promptfoo starter.
+
+The next milestone is Agent 1: its independent `/run` service, narrow account/call/document tools, approval-gated task creation, typed output, traces, and the first stable evaluation set.
 
 ## Documentation
 
